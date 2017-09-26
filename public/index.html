@@ -7,16 +7,6 @@
   <body>
     <p>welcome to the chat app</p>
     <script src="/socket.io/socket.io.js">//this loads in the socket.io havascript library that we use to make connections below</script>
-    <script type="text/javascript">
-    //this fucntion tells the page to initiate thre request from client to server to open up the web socket and keep it open
-      var socket = io();
-      socket.on('connect', () => {
-        console.log('Connected to server');
-      });
-
-      socket.on('disconnect', () => {
-        console.log('Disconnected from server');
-      });
-    </script>
+    <script src="/js/index.js"></script>
   </body>
 </html>
