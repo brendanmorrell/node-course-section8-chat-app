@@ -4,7 +4,8 @@ const http = require('http');
 //installed modules
 const express = require('express');
 const socketIO = require('socket.io');
-
+//local modules
+const {generateMessage} = require('./utils/message.js')
 
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT||3000;
@@ -16,33 +17,15 @@ app.use(express.static(publicPath));
 //register a listener for some event, and then do something when the event is triggered
 io.on('connection', (socket) => {
   console.log('New Client Connected');
-
-  socket.emit('newMessage', {
-    from:'Admin',
-    text:'Welcome to the chat app',
-    createdAt: new Date().getTime()
-  });
-
-  socket.broadcast.emit('newMessage', {
-    from: 'Admin',
-    text: 'New User Joined',
-    createdAt: new Date().getTime()
-  })
+  //sends to single user that listens/receives the call
+  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+  //sends to all users but the individual that listens/receives the call
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New Client Joined'));
 
   socket.on('createMessage', (message) => {
     console.log('Received Message From Client:', message);
     //sends to all users
-/*    io.emit('newMessage', {
-      from: message.from,
-      text: message.text,
-      createdAt: new Date().getTime()
-    });*/
-    //sends to every user but the one that connected to the socket and sent the trigger
-/*    socket.broadcast.emit('newMessage', {
-      from: message.from,
-      text: message.text,
-      createdAt: new Date().getTime()
-    })*/
+    io.emit('newMessage', generateMessage(message.from, message.text));
   });
 
 
