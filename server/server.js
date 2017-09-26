@@ -1,18 +1,29 @@
+//built in node modules
 const path = require('path');
-/*const fs = require('fs');*/
-
+const http = require('http');
+//installed modules
 const express = require('express');
-/*const hbs = require('hbs');*/
+const socketIO = require('socket.io');
+
 
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT||3000;
-var app = express();
+let app = express();
+let server = http.createServer(app);
+let io = socketIO(server);
+
+app.use(express.static(publicPath));
+//register a listener for some event, and then do something when the event is triggered
+io.on('connection', (socket) => {
+  console.log('New Client Connected');
+
+  socket.on('disconnect', () => {
+    console.log('Client Disconnected');
+  });
+});
 
 
-app.use(express.static(publicPath))
-/*app.get('/index.html', (req, res) => {
-  res.render('index.html')
-})*/
-app.listen(port, () => {
+
+server.listen(port, () => {
   console.log(`server is listening on port ${port}`)
-})
+});
