@@ -22,10 +22,11 @@ io.on('connection', (socket) => {
   //sends to all users but the individual that listens/receives the call
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New Client Joined'));
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('Received Message From Client:', message);
     //sends to all users
     io.emit('newMessage', generateMessage(message.from, message.text));
+    callback();
   });
 
 
