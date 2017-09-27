@@ -3,16 +3,32 @@
   <head>
     <meta charset="utf-8">
     <title>Chat App HTML Page</title>
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
-    <p>welcome to the chat app</p>
-    <ol id="messages"></ol>
+  <body class="chat">
 
-    <form id="message-form">
-      <input name="message" type="text" placeholder="Type Message Here" />
-      <button>Send</button>
-    </form>
-    <button id="send-location">Share Location</button>
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="users"></div>
+    </div>
+
+    <div class="chat__main">
+      <ol id="messages" class="chat__messages"></ol>
+
+      <div class="chat__footer">
+        <form id="message-form">
+          <input name="message" type="text" placeholder="Type Message Here" autofocus autocomplete="off" />
+          <button>Send</button>
+        </form>
+        <button id="send-location">Share Location</button>
+      </div>
+
+    </div>
+
+
+
+
+
 
 
     <script src="/socket.io/socket.io.js">//this loads in the socket.io havascript library that we use to make connections below</script>
