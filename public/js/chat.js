@@ -22,7 +22,7 @@ $('#messages').scroll( function () {
     counter = 0;
     if ($('#counter')){
       $('#counter').remove();
-    }
+    };
   }
 });
 
