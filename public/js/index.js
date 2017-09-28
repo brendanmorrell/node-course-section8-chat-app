@@ -20,6 +20,9 @@ $('#messages').scroll( function () {
   let lastMessageHeight = newMessage.prev().innerHeight();
   if (scrollTop+clientHeight+newMessageHeight+lastMessageHeight >= scrollHeight) {
     counter = 0;
+    if ($('#counter')){
+      $('#counter').remove();
+    }
   }
 });
 
