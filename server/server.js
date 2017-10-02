@@ -26,6 +26,7 @@ io.on('connection', (socket) => {
 
     if (user && isRealString(message.text)) {
       io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+      socket.broadcast.to(user.room).emit('notificationCall', generateMessage(`${user.name}`, 'triggered notificationCall on other users') )
     }
 
     callback();
@@ -75,3 +76,19 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`server is listening on port ${port}`)
 });
+
+
+
+
+
+
+
+///////IMPROVEMENT IDEAS
+/*
+1) Make the notification show only for people who didn't send the message
+2) make the new message notification show for location sends as well
+3) make the chatroom joining case insensitive
+4)make it so users have to use unique namesArray
+5)show a select dropdown that shows the currently active chatrooms on the index.html page
+6)add something that highlights the user whose browser page it is
+7) maybe add something like the "..." when people are typing, and highlight their name when typing*/

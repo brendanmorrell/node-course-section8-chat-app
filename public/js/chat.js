@@ -99,6 +99,10 @@ socket.on('updateUserList', function (users) {
   $('#users').html(ol);
 });
 
+socket.on('notificationCall', function (message) {
+  console.log(message)
+});
+
 socket.on('newMessage', function (message) {
   let formattedTime = moment(message.createdAt).format('h:mm a');
   let template = $('#message-template').html();
